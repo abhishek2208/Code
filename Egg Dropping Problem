@@ -1,0 +1,39 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,k;
+        cin>>n>>k;
+        int dp[n+1][k+1];
+        for(int i=0;i<=k;i++)
+            dp[1][i]=i;
+
+        for(int i=2;i<=n;i++)
+        {
+            for(int j=0;j<=k;j++)
+            {
+                if(j<i)
+                    dp[i][j]=dp[i-1][j];
+                else{
+                        int minm=INT_MAX;
+                    for(int l=1;l<=j;l++)
+                {
+                    minm=min(minm,1+max(dp[i-1][l-1],dp[i][j-l]));
+
+
+                }
+
+                dp[i][j]=minm;
+                }
+            }
+        }
+
+
+
+cout<<dp[n][k]<<endl;
+    }
+}
