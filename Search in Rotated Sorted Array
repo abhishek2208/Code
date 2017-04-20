@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+int b_search(int a[],int l,int h,int k)
+{
+
+    int mid=(l+h)/2;
+    if(a[mid]==k)  return mid;
+
+    if(a[mid]>k) return b_search(a,l,mid-1,k);
+    else         return b_search(a,mid+1,h,k);
+}
+int find_pivot(int a[],int l,int h)
+{
+    if(a[0]<a[h]) return -1;
+    if(l==h)
+        return l;
+    int mid=(l+h)/2;
+    if(mid>l&&a[mid]<a[mid-1]) return mid;
+
+    if(a[l]<a[mid]) return find_pivot(a,mid,h);
+    else          return find_pivot(a,l,mid);
+}
+int pivot_search(int a[],int l,int h,int k)
+{
+    int p=find_pivot(a,l,h);
+    if(p==-1)  return b_search(a,l,h,k);
+    if (a[p]==k) return p;
+
+    if(k>=a[l]) return b_search(a,l,p-1,k);
+    else       return b_search(a,p,h,k);
+}
+
+int main()
+{
+    int a[10]={5,6,7,8,9,0,1,2,3,4};
+
+    int k;
+    cin>>k;
+
+   int s= pivot_search(a,0,9,k);
+   cout<<s<<endl;
+}
