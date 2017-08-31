@@ -12,20 +12,27 @@ struct node* newnode(int d)
     root->data=d;
     root->left=NULL;
     root->right=NULL;
-    return root;
 };
+int height(struct node* root)
+{
+    if(root==0)
+        return 0;
+    return 1+max(height(root->left),height(root->right));
+}
 
-int size_tree(struct node* root)
+
+int diameter(struct node* root)
 {
  if(root==NULL)
     return 0;
 
- return 1+size_tree(root->left)+size_tree(root->right);
+
+ return max(max(diameter(root->left),diameter(root->right)),1+height(root->left)+height(root->right));
 }
 
 int main()
 {
-   struct  node* root = newnode(1);
+   struct  node *root = newnode(1);
     root->left = newnode(2);
     root->right = newnode(3);
     root->left->left = newnode(4);
@@ -33,7 +40,7 @@ int main()
     root->right->right = newnode(6);
 
 
-    int d=size_tree(root);
+    int d=diameter(root);
     cout<<d<<endl;
 
 
@@ -42,6 +49,7 @@ int main()
 
 
 }
+
 
 
 

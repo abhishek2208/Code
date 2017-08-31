@@ -12,20 +12,28 @@ struct node* newnode(int d)
     root->data=d;
     root->left=NULL;
     root->right=NULL;
-    return root;
 };
 
-int size_tree(struct node* root)
+bool ancestor(struct node* root,int key)
 {
  if(root==NULL)
-    return 0;
+    return false;
 
- return 1+size_tree(root->left)+size_tree(root->right);
+ if(root->data==key)
+    return true;
+
+ if(ancestor(root->left,key)||ancestor(root->right,key))
+    {
+    cout<<root->data<<endl;
+    return true;
+    }
+ else
+    return false;;
 }
 
 int main()
 {
-   struct  node* root = newnode(1);
+   struct  node *root = newnode(1);
     root->left = newnode(2);
     root->right = newnode(3);
     root->left->left = newnode(4);
@@ -33,8 +41,8 @@ int main()
     root->right->right = newnode(6);
 
 
-    int d=size_tree(root);
-    cout<<d<<endl;
+    ancestor(root,4);
+
 
 
 
@@ -42,6 +50,7 @@ int main()
 
 
 }
+
 
 
 

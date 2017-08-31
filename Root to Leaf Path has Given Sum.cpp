@@ -12,28 +12,38 @@ struct node* newnode(int d)
     root->data=d;
     root->left=NULL;
     root->right=NULL;
-    return root;
 };
+int height(struct node* root)
+{
+    if(root==0)
+        return 0;
+    return 1+max(height(root->left),height(root->right));
+}
 
-int size_tree(struct node* root)
+
+int hasPath(struct node* root,int curr_sum,int sum)
 {
  if(root==NULL)
     return 0;
 
- return 1+size_tree(root->left)+size_tree(root->right);
+    if(root->left==NULL&&root->right==NULL&&root->data+curr_sum==sum)
+        return 1;
+
+
+ return hasPath(root->left,root->data+curr_sum,sum)||hasPath(root->right,root->data+curr_sum,sum);
 }
 
 int main()
 {
-   struct  node* root = newnode(1);
+   struct  node *root = newnode(1);
     root->left = newnode(2);
     root->right = newnode(3);
-    root->left->left = newnode(4);
+    root->left->left = newnode(3);
     root->left->right = newnode(5);
     root->right->right = newnode(6);
 
 
-    int d=size_tree(root);
+    int d=hasPath(root,0,7);
     cout<<d<<endl;
 
 
@@ -42,6 +52,8 @@ int main()
 
 
 }
+
+
 
 
 
