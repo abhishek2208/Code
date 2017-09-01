@@ -14,19 +14,7 @@ struct node* newnode(int d)
     root->right=NULL;
 };
 
-struct node* mirror(struct node* root)
-{
- if(root==NULL)
-    return root;
-   root->left= mirror(root->left);
-   root->right=mirror(root->right);
-   struct node* temp=root->left;
-   root->left=root->right;
-   root->right=temp;
-   return root;
 
-
-}
 void printpaths(struct node* root,int a[],int len)
 {
    if(root->left==NULL&&root->right==NULL)
